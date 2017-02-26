@@ -28,17 +28,18 @@ SCHEMA = [
     ('valign',  re.compile(r'top|mid|bottom')),
     ('height',  (0.0, 1000.0)),
     ('xsf',     (0.001, 1000.0)),
+    ('kern',     (-2.0, 2.0)),
 ]
 
 class Request(object):
   def __init__(self):
     self.valid = False
 
-def text_to_dxf(txt='ABC', font_name='romans', sf=1.0, xsf=1.0, valign="m",
+def text_to_dxf(txt='ABC', font_name='romans', sf=1.0, xsf=1.0, kern=0.0, valign="m",
                 halign="c"):
   font = FONTS[font_name]
   painter = HersheyPainter()
-  painter.begin(font, x=0, y=0, sf=sf, xsf=xsf)
+  painter.begin(font, x=0, y=0, sf=sf, xsf=xsf, kern=kern)
   painter.draw_str(txt)
   lines = painter.get_aligned_lines(valign=valign, halign=halign)
   dxfdoc = DXFDoc('output.dxf')
@@ -97,7 +98,8 @@ def index():
     errstr, req = validate(flask.request.form)
     if req.valid:
       dxfstr = text_to_dxf(txt=req.txt, sf=req.height, xsf=req.xsf,
-                           valign=req.valign[0], halign=req.halign[0])
+                           kern=req.kern, valign=req.valign[0],
+                           halign=req.halign[0])
       return flask.send_file(
           filename_or_fp=StringIO.StringIO(dxfstr),
           mimetype="Application/DXF",
@@ -111,5 +113,5 @@ def index():
 
 if __name__ == "__main__":
   APP.debug = False
-  APP.run(port=LISTEN_PORT)
+  APP.run(host='0.0.0.0', port=LISTEN_PORT)
 

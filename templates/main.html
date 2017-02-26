@@ -35,6 +35,39 @@ h1 {
   text-align:center;
 }
 
+/* Tooltip container aka "?" */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  font-size:85%;
+  color:#fff;
+  background: #00f;
+  padding-top:2px;
+  padding-bottom:2px;
+  padding-left:8px;
+  padding-right:8px;
+  border-radius:5px;
+}
+
+/* Actual Tooltip */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #009;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
 body { font-family: Arial, Helvetica, Sans; background: #a0a8c0;}
 
 </style>
@@ -63,7 +96,13 @@ Type in your text and get a DXF block containg your text as lines. Works with Au
   </tr>
   <tr>
   <td>X Scale Factor:</td>
-  <td><input type="text" name="xsf" value="0.8"/></td>
+  <td><input type="text" name="xsf" value="0.8"/>
+      <div class="tooltip">?<span class="tooltiptext">Relative width of characters; 1.0 is default</span></div></td>
+  </tr>
+  <tr>
+  <td>Kern Adjust:</td>
+  <td><input type="text" name="kern" value="0"/>
+      <div class="tooltip">?<span class="tooltiptext">Additional space between characters as ratio of height; 0 is default</span></div></td>
   </tr>
 
   <tr>

@@ -8,12 +8,13 @@ class HersheyPainter(object):
   def __init__(self):
     pass
 
-  def begin(self, font, x, y, sf, xsf):
+  def begin(self, font, x, y, sf, xsf, kern):
     self.font = font
     self.x = x
     self.y = y
     self.sf = sf
     self.xsf = xsf
+    self.kern = kern
     self.lines = []
     self._get_m_height()
 
@@ -83,6 +84,7 @@ class HersheyPainter(object):
         ox = nx
         oy = ny
     self.x += limits[1] * self.sf * self.xsf
+    self.x += self.kern * self.mheight * self.sf
        
 if __name__ == '__main__':
   d = DataOut()
