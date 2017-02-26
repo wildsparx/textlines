@@ -24,7 +24,7 @@ class HersheyPainter(object):
     
   def _get_lines(self):
     '''Return properly scaled, but not aligned lines'''
-    return [[(float(v)-self.mbottom)/self.mheight for v in line] for line in self.lines]
+    return [[(float(v)-self.mbottom*self.sf)/self.mheight for v in line] for line in self.lines]
 
   def get_aligned_lines(self, valign='m', halign='c'):
     '''tmb lrc'''
@@ -44,11 +44,11 @@ class HersheyPainter(object):
       deltax = (minx+maxx)/-2
 
     if valign == 't':
-      deltay = -1.0
+      deltay = -1.0 * self.sf
     elif valign == 'b':
       deltay = 0
     elif valign == 'm':
-      deltay = -0.5
+      deltay = -0.5 * self.sf
 
     deltas = (deltax, deltay)
     ncols = [[v + deltas[i%2] for v in col] for i, col in enumerate(cols)]
