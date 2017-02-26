@@ -1,0 +1,103 @@
+<html>
+<head>
+<style type="text/css">
+
+td { padding:5px }
+div.error {
+  background: red;
+  padding: 5px
+}
+div.app {
+  background: #c0c8f0;
+  border: 3px solid #00f;
+  width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
+div.info {
+  width:600px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:10px;
+}
+input {
+  width:40px
+}
+input.wide {
+  width:400px
+}
+button.go {
+  background: #00f;
+  color: white;
+  padding:5px;
+}
+h1 {
+  text-align:center;
+}
+
+body { font-family: Arial, Helvetica, Sans; background: #a0a8c0;}
+
+</style>
+</head>
+<body>
+<h1>Vector Text Generator</h1>
+
+<div class="info">
+Type in your text and get a DXF block containg your text as lines. Works with AutoCAD, Corel Draw and laser cutters.
+</div>
+
+<div class="app">
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/textlines">
+  <table>
+  <tr>
+  <td>Text:</td>
+  <td><input type="text" name="txt" class="wide" value="ABC"/></td>
+  </tr>
+  <tr>
+  <td>Height:</td>
+  <td><input type="text" name="height" value="1"/></td>
+  </tr>
+  <tr>
+  <td>X Scale Factor:</td>
+  <td><input type="text" name="xsf" value="0.8"/></td>
+  </tr>
+
+  <tr>
+  <td>Horizontal Alignment:</td>
+  <td><select name="halign">
+    <option>left</option>
+    <option>center</option>
+    <option>right</option>
+  </select></td>
+  </tr>
+  <tr>
+  <td>Vertical Alignment:</td>
+  <td><select name="valign">
+    <option>top</option>
+    <option>mid</option>
+    <option>bottom</option>
+  </select></td>
+  </tr>
+  <tr>
+  <td>Font:</td>
+  <td>Roman Simplex</td>
+  </tr>
+  <tr>
+  <td></td>
+  <td><button class="go" type="submit">Get DXF Block</button></td>
+  </tr>
+  </table>
+</form>
+</div>
+<!-- /app -->
+
+<div class="info">
+(C) 2017 Asher Blum &lt;asher@wildsparx.com&gt;
+</div>
+
+</body>
+</html>
